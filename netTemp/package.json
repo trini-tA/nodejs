@@ -1,0 +1,15 @@
+{
+  "name": "nettemp",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {},
+  "dependencies": {
+    "stream": "*",
+    "express":"4.11.2",
+    "jade":"1.9.2"
+  },
+  "main": "app.js",
+  "devDependencies": {},
+  "author": "",
+  "license": "GPLv2"
+}
