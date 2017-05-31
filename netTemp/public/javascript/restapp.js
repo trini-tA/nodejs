@@ -1,77 +1,89 @@
 (function() {
 
-	var engine = {
-		init : function() {
-			$('document').ready(engine.main);
-		},
-		main : function() {
-			console.log('main de temp app');
-			
-			var getData = $.post('/services/temp', '', function(data) {
-				//console.log( '/services/temp\n' + data );
-				if( data != undefined ){
-					
-					/*$.ajaxSetup({
-						contentType: "application/json",
-					});*/
-					
-					
-					var dataSet = [];
-					var jsonTemp = [];
-					var postData = data.split("\n");		// convert string to array
-					var countValue = 0;
-					for( var i=0; i < postData.length; i++ ){
-						// id main_table
-						if( i > 0 ){
-						
-							// table head
-							var value = postData[i].split(',');
+
+    var engine = {
+        init: function() {
+            $('document').ready(engine.main);
+        },
+        main: function() {
+            console.log('Start main program');
+
+            var getCurrentTemp = $.post('/services/currentTemp', '', function(obj_currentTemp) {
+
+                console.log('Current Temp is : ' + obj_currentTemp.temp + '°C');
+                if (obj_currentTemp.temp != undefined) {
+                    $('#divCurrentTemp').text('Current temp is: ' + obj_currentTemp.temp);
+                }
+
+            });
+
+
+            var getData = $.post('/services/temp', '', function(data) {
+                //console.log('/services/temp\n' + data);
+                if (data != undefined) {
+
+                    /*$.ajaxSetup({
+                    	contentType: "application/json",
+                    });*/
+
+                    // convert data csv to json
+                    var dataSet = [];
+                    var jsonTemp = [];
+                    var postData = data.split("\n"); // convert string to array
+                    var countValue = 0;
+                    for (var i = 0; i < postData.length; i++) {
+                        // id main_table
+                        if (i > 0) {
+
+                            // table head
+                            var value = postData[i].split(',');
+
+                            /* var newTH = $('<tr class="">');
+                            var newTR1 = $('<td class="">');
+                            newTR1.text( value[0] );
+                            var newTR2 = $('<td class="">');
+                            newTR2.text( value[1]/1000.00 );
 							
-							/* var newTH = $('<tr class="">');
-							var newTR1 = $('<td class="">');
-							newTR1.text( value[0] );
-							var newTR2 = $('<td class="">');
-							newTR2.text( value[1]/1000.00 );
+                            newTH.append(newTR1);
+                            newTH.append(newTR2);
 							
-							newTH.append(newTR1);
-							newTH.append(newTR2);
-							
-							$('#main_table').append( newTH );*/
-							dataSet.push( [
-								value[0].replace( '-', '/').replace( '-', '/').replace( '-', '/'),
-								value[1]/1000.00
-								] );
-							
-							if( i > postData.length - 15 ){
-                                if( countValue < 13 ){
-                                        countValue++;
-                                        jsonTemp.push( value[1]/1000.00  );
+                            $('#main_table').append( newTH );*/
+                            dataSet.push([
+                                value[0].replace('-', '/').replace('-', '/').replace('-', '/'),
+                                value[1] / 1000.00
+                            ]);
+
+                            if (i > postData.length - 15) {
+                                if (countValue < 13) {
+                                    countValue++;
+                                    jsonTemp.push(value[1] / 1000.00);
                                 }
-							}
-						}
-						//console.log( postData[i]);
-						
-					}
-					
-					$(document).ready(function() {
-					    $('#main_table').DataTable({
-					    	data: dataSet,
-					    	columns: [
-			    	            { title: "Date" },
-			    	            { title: "Temperature" },
-					    	        ],
-					        columnDefs: [ {
-					        	type: 'date-euro', targets: 0,
-					            targets: [ 0 ],
-					            orderData: [ 0, 1 ]
-					        }, {
-					            targets: [ 1 ],
-					            orderData: [ 1, 0 ]
-					        },]
-					    });
-					} );
-					
-					$('#container').highcharts({
+                            }
+                        }
+                        //console.log( postData[i]);
+
+                    }
+
+                    $(document).ready(function() {
+                        $('#main_table').DataTable({
+                            data: dataSet,
+                            columns: [
+                                { title: "Date" },
+                                { title: "Temperature" },
+                            ],
+                            columnDefs: [{
+                                type: 'date-euro',
+                                targets: 0,
+                                targets: [0],
+                                orderData: [0, 1]
+                            }, {
+                                targets: [1],
+                                orderData: [1, 0]
+                            }, ]
+                        });
+                    });
+
+                    $('#container').highcharts({
                         title: {
                             text: 'Monthly Average Temperature',
                             x: -20 //center
@@ -105,21 +117,22 @@
                         series: [{
                             name: 'Garage',
                             data: jsonTemp
-                        },
-                        ]
+                        }, ]
                     });
-					
-				}
-			});
-			
-				
-			/****var comObj = $.post('/services/temp', '', function(data) {
-				console.log('services/temp----> ' + JSON.stringify(data));
-			});**/
-		},
-	};
 
-	engine.init();
+                } else {
+                    console.log('Warning no data present oO');
+                }
+            });
+
+
+            /****var comObj = $.post('/services/temp', '', function(data) {
+            	console.log('services/temp----> ' + JSON.stringify(data));
+            });**/
+        },
+    };
+
+    engine.init();
 })();
 
 /**

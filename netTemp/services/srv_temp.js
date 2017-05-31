@@ -2,10 +2,9 @@ var fs = require('fs');
 
 // Config local
 var conf = {
-	file : {
-		path : 'temp.txt',
-		
-	}
+    file: {
+        path: 'temp.txt',
+    }
 };
 
 /**
@@ -16,19 +15,21 @@ var conf = {
  * @param resp
  */
 function postProcess(req, resp) {
-	
-	fs.readFile( conf.file.path, function(err, data) {
-		
-		if( data != undefined ){
-			resp.sendStatus( data );
-		} else {
-			resp.sendStatus( 204 );
-		}
-		
-		// no content 
-		
-		
-	 });
+
+    fs.readFile(conf.file.path, function(err, data) {
+
+        if (data != undefined) {
+            //console.log("data return is: " + data);
+            resp.status(200).send(data);
+            //resp.sendStatus( data );
+        } else {
+            resp.sendStatus(204);
+        }
+
+        // no content 
+
+
+    });
 }
 
 /*

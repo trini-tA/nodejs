@@ -1,5 +1,19 @@
 NetTemp
 
+Pré-requis :
+* raspberry pi
+* nodejs
+* DB..
+
+Description :
+
+
+Nexts changes :
+-> read file system to get measure
+-> save in sqlitedb
+-> remote access in cloud
+-> responsive design
+
 -> Show temp in browser, table and graph
 
 temp.txt it's necessary on root project.
@@ -13,8 +27,4 @@ date,temp
 08-02-2015 15:20:02, 19625
 .....
 
-Nexts changes :
--> read file system to get measure
--> save in sqlitedb
--> remote access in cloud
--> responsive design
+
