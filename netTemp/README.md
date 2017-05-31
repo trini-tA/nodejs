@@ -3,12 +3,28 @@ NetTemp
 Pré-requis :
 * raspberry pi
 * nodejs
-* DB..
+* DS18B20
+* 4,7 kΩ
+* nodejs >= 8.x.x
+
+Informations :
+* Branchement: GPIO 1, 4, 5
+* Module raspbian: w1-gpio et w1-therm
+* Chemin de(s) capteur(s): /sys/bus/w1/devices/...
+* http://www.framboise314.fr/mesure-de-temperature-1-wire-ds18b20-avec-le-raspberry-pi/
 
 Description :
+* Mesure de température via un capteur
+* Affichage de la température courante
+* Historique des mesures
+* Graphique
+* Tableau
 
 
-Nexts changes :
+2017 Trint@
+
+
+@TODO :
 -> read file system to get measure
 -> save in sqlitedb
 -> remote access in cloud
