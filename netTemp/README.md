@@ -12,3 +12,9 @@ date,temp
 08-02-2015 15:15:02, 19625
 08-02-2015 15:20:02, 19625
 .....
+
+Nexts changes :
+-> read file system to get measure
+-> save in sqlitedb
+-> remote access in cloud
+-> responsive design
