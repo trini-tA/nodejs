@@ -19,7 +19,16 @@ function postProcess(req, resp) {
     fs.readFile(conf.file.path, function(err, data) {
 
         if (data != undefined) {
-            //console.log("data return is: " + data);
+
+            //FIXME create json structure and return it
+            //resp.set({
+            //    'content-Type': 'application/json'
+            //});
+            //resp.send(data);
+            //https://stackoverflow.com/questions/19803421/jquery-post-to-node-js-fails
+            //??? resp.json(request.body.page);
+
+            //FIXME deprecated
             resp.status(200).send(data);
             //resp.sendStatus( data );
         } else {

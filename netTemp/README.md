@@ -21,15 +21,20 @@ Description :
 * Tableau
 
 
+Note:
+body-parser is required for $.post (ajax) send data.
+
 2017 Trint@
 
 
 @TODO :
--> read file system to get measure
+-> add entete in all file
+-> clean code
+-> read file system to get measure [OK]
 -> save in sqlitedb
 -> remote access in cloud
 -> responsive design
-
+-> create global param.js
 -> Show temp in browser, table and graph
 
 temp.txt it's necessary on root project.

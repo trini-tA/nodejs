@@ -1,15 +1,17 @@
 {
-  "name": "nettemp",
-  "version": "1.0.0",
-  "private": true,
-  "scripts": {},
-  "dependencies": {
-    "stream": "*",
-    "express": "4.11.2",
-    "jade": "1.9.2"
-  },
-  "main": "app.js",
-  "devDependencies": {},
-  "author": "",
-  "license": "GPLv2"
+    "name": "nettemp",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {},
+    "dependencies": {
+        "body-parser": "^1.17.2",
+        "express": "4.11.2",
+        "jade": "1.9.2",
+        "sqlite3": "^3.1.8",
+        "stream": "*"
+    },
+    "main": "app.js",
+    "devDependencies": {},
+    "author": "",
+    "license": "GPLv2"
 }

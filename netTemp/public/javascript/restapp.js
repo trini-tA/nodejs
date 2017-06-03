@@ -10,9 +10,52 @@
 
             var getCurrentTemp = $.post('/services/currentTemp', '', function(obj_currentTemp) {
 
-                console.log('Current Temp is : ' + obj_currentTemp.temp + '°C');
+                console.log('Current Temp is : ' + obj_currentTemp.temp);
                 if (obj_currentTemp.temp != undefined) {
-                    $('#divCurrentTemp').text('Current temp is: ' + obj_currentTemp.temp);
+                    $('#divCurrentTemp').text('Current temp is: ' + obj_currentTemp.temp + '°C');
+
+
+                    // save it
+                    $.ajax({
+                        type: 'POST',
+                        url: '/services/savedb',
+                        //timeout: 15000,
+                        data: JSON.stringify({ 'currentTemp': obj_currentTemp.temp }),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: 'json',
+                        //processData: false,
+                        success: function(data) {
+                            console.log('success');
+                            console.log(JSON.stringify(data));
+                        },
+                        error: function(error) {
+                            console.log("some error in fetching the notifications");
+                        }
+
+                    });
+
+                    /* $.ajaxSetup({
+                        contentType: "application/json",
+                        data: JSON.stringify({ currentTemp: obj_currentTemp.temp }),
+                        dataType: "json",
+                        type: 'POST',
+                    });
+
+                    var saveCurrentTemp = $.post('/services/savedb',
+                        function(result) {
+
+                            if (result.code != undefined) {
+                                if (result.code == 0) {
+                                    console.log('Error 2 save db current value');
+                                }
+                            } else {
+                                console.log('Error 1 save db current value');
+                            }
+                        }).fail(function() {
+                        console.log("Error 0 save db current value");
+                    });*/
+                    // save it
+
                 }
 
             });
@@ -21,10 +64,6 @@
             var getData = $.post('/services/temp', '', function(data) {
                 //console.log('/services/temp\n' + data);
                 if (data != undefined) {
-
-                    /*$.ajaxSetup({
-                    	contentType: "application/json",
-                    });*/
 
                     // convert data csv to json
                     var dataSet = [];

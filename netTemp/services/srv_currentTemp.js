@@ -12,7 +12,6 @@ var fs = require('fs');
 var conf = {
     file: {
         path: 'w1_slave',
-
     }
 };
 
