@@ -1,12 +1,4 @@
-//var sqlite3 = require('sqlite3').verbose();
-var sqlite3 = require('sqlite3');
-
-var conf = {
-    db: {
-        path: '',
-        name: 'netTemp.db',
-    }
-};
+var tools = require('../tools/utils');
 
 /**
  * 
@@ -17,32 +9,17 @@ var conf = {
  */
 function postProcess(req, resp) {
     var localTemp = -1;
-    //console.log(req);
-
 
     if ('body' in req) {
         localTemp = req.body;
-
-
-        var db = new sqlite3.Database('mydb.db');
-        var check;
-        db.serialize(function() {
-
-            // create table ifnot exists
-            db.run("CREATE TABLE if not exists net_temp (timestamp datetime DEFAULT CURRENT_TIMESTAMP, value numeric, id_piece int )");
-            var stmt = db.prepare("INSERT INTO net_temp VALUES (?,?)");
-            stmt.run("Ipsum " + i);
-            stmt.finalize();
-
-
+        tools.saveTemp(localTemp, function(code) {
+            if (code.code == 1) {
+                resp.sendStatus(200);
+            } else {
+                resp.sendStatus(204);
+            }
         });
-
-        db.close();
-        resp.sendStatus(200);
-
     } else {
-
-
         resp.sendStatus(400);
     }
 

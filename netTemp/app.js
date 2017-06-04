@@ -4,6 +4,15 @@ var path = require('path');
 var facade = require('./services/facadeservice');
 var bodyParser = require('body-parser');
 
+// load localModule
+var param = require('./param');
+var tools = require('./tools/utils');
+var schedule = require('./schedule');
+
+//console.log(param.conf);
+
+
+// 
 app.set('views', './')
 app.set('view engine', 'jade');
 app.use(bodyParser.json())
@@ -16,6 +25,7 @@ app.get('/', function(req, res) {
     res.render('index.jade', { title: 'Dashboard' });
 });
 
+// download file ( example )
 app.get('/go', function(req, res) {
     var fs = require('fs');
     fs.readFile('temp.txt', function(err, data) {
@@ -65,6 +75,6 @@ var server = app.listen(3000, function() {
     var host = server.address().address
     var port = server.address().port
 
-    console.log('Example app listening at http://%s:%s', host, port)
+    console.log('NetTemp app listening at http://%s:%s', host, port)
 
 })

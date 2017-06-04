@@ -1,11 +1,5 @@
 var fs = require('fs');
-
-// Config local
-var conf = {
-    file: {
-        path: 'temp.txt',
-    }
-};
+var param = require('../param');
 
 /**
  * 
@@ -16,7 +10,7 @@ var conf = {
  */
 function postProcess(req, resp) {
 
-    fs.readFile(conf.file.path, function(err, data) {
+    fs.readFile(param.conf.tempTxtFile.path + param.conf.tempTxtFile.filename, function(err, data) {
 
         if (data != undefined) {
 
