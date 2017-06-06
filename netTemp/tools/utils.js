@@ -73,6 +73,59 @@ module.exports = {
         codeReturn.msg = 'OK';
 
         callback(codeReturn);
-    }
+    },
+    selectData: function(queryParam, orderby, limit, callback) {
+        var sqlite3 = require('sqlite3');
+        var param = require('../param');
+        var codeReturn = {
+            code: -1,
+            "msg": 'Error ...',
+            data: {}
+        };
+        var netTemp = [];
+        var query = "select timestamp, value, id_piece from net_temp";
+        if (orderby != undefined) {
+            query += " " + orderby;
+        }
+        if (limit != undefined) {
+            query += " " + limit;
+        }
+        var db = new sqlite3.Database(param.conf.db.path + param.conf.db.name);
+        db.serialize(function() {
+            db.each(query, function(err, row) {
+
+                    if (err != undefined) {
+                        codeReturn.code = 0;
+                        codeReturn.msg = err.message;
+                        callback(codeReturn);
+                    } else {
+
+                        var date = new Date(row.timestamp);
+
+                        netTemp.push({
+                            timestamp: date.toISOString(),
+                            temp: row.value,
+                            id_piece: row.id_piece,
+                        });
+
+                    }
+                    ///console.log(row.timestamp + ": " + row.value);
+                },
+                function complete(err, found) {
+                    codeReturn.code = 1;
+                    codeReturn.msg = 'OK';
+                    codeReturn.data = netTemp;
+
+                    callback(codeReturn);
+                }
+            );
+
+
+        });
+        db.close();
+
+
+
+    },
 
 }

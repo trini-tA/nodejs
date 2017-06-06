@@ -1,5 +1,6 @@
 (function() {
 
+
     var engine = {
         init: function() {
             $('document').ready(engine.main);
@@ -11,7 +12,7 @@
                 obj_currentTemp = JSON.parse(obj_currentTemp);
 
                 if (obj_currentTemp.temp != undefined) {
-                    $('#divCurrentTemp').text('Current temp is: ' + obj_currentTemp.temp + '°C');
+                    $('#lblCurrentTemp').text('Current temp is: ' + obj_currentTemp.temp + '°C');
 
                     // save it
                     $.ajax({

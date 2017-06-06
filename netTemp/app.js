@@ -66,6 +66,22 @@ app.get('/go/show', function(req, res) {
     });
 });
 
+//
+//  Testing ws view all data in db
+//
+app.get('/ws/showData', function(req, res) {
+
+    tools.selectData(undefined, 'order by timestamp desc', 'limit 0, 20', function(response) {
+        ///console.log(response);
+        res.contentType('application/json');
+        res.send(response);
+    });
+
+    //res.contentType('application/json');
+    //res.send('');
+
+});
+
 function isEmpty(column) {
     return column !== "" && column !== undefined
 }

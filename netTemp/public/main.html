@@ -21,6 +21,8 @@
 
 
     <script type="text/javascript" src="/javascript/restapp.js"></script>
+    <script type="text/javascript" src="/javascript/refresh.js"></script>
+
     <script src="/javascript/bootstrap.js"></script>
 
 </head>
@@ -30,7 +32,13 @@
     <div class="panel panel-default">
         <!-- Default panel contents -->
 
-        <div id='divCurrentTemp' class="panel-heading">Current Temp: </div>
+        <div id='divCurrentTemp' class="panel-heading">
+            <h3>
+                <span id='lblCurrentTemp' class="label label-default">Current Temp:</span>
+                <button id='buttRefreshTemp' class="btn btn-primary"><span class="glyphicon glyphicon-refresh"></span></button>
+
+            </h3>
+        </div>
         <div class="panel-heading">History of Temp</div>
         <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
