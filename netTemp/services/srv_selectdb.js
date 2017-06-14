@@ -16,11 +16,10 @@ function postProcess(req, resp) {
         request = {};
     }
 
-    tools.selectData(request, undefined, undefined, function(code) {
+    tools.selectData(undefined, undefined, undefined, function(code) {
         if (code.code == 1) {
-            //todo send data
+            resp.send(code);
 
-            resp.sendStatus(200);
         } else {
             resp.sendStatus(204);
         }

@@ -6,7 +6,8 @@
 var schedule = require('node-schedule');
 var tools = require('./tools/utils');
 
-var j = schedule.scheduleJob('*/15 * * * * *', function() {
+// all 10 minutes
+var j = schedule.scheduleJob('*/10 * * * *', function() {
 
     tools.readTemp(function(code) {
         if (code.code == 1) {

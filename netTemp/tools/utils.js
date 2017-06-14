@@ -86,9 +86,14 @@ module.exports = {
         var query = "select timestamp, value, id_piece from net_temp";
         if (orderby != undefined) {
             query += " " + orderby;
+        } else {
+            query += ' order by timestamp desc'
         }
         if (limit != undefined) {
             query += " " + limit;
+        } else {
+            //force limit for performance
+            query += ' limit 0, 2000';
         }
         var db = new sqlite3.Database(param.conf.db.path + param.conf.db.name);
         db.serialize(function() {

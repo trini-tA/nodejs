@@ -44,17 +44,39 @@
 
             });
 
+            // tools.selectData(undefined, 'order by timestamp desc', 'limit 0, 20', function(response) {
+            ///console.log(response);
+            //res.contentType('application/json');
+            //res.send(response);
+            //});
 
-            var getData = $.post('/services/temp', '', function(data) {
-                //console.log('/services/temp\n' + data);
-                if (data != undefined) {
+            var getData = $.post('/services/selectdb', '', function(resp) {
 
+                //console.log('Trace ' + JSON.stringify(resp));
+                if (resp.data != undefined) {
                     // convert data csv to json
                     var dataSet = [];
                     var jsonTemp = [];
-                    var postData = data.split("\n"); // convert string to array
                     var countValue = 0;
-                    for (var i = 0; i < postData.length; i++) {
+                    var dataFromDB = resp.data;
+
+                    dataFromDB.forEach(function(item) {
+
+                        // tableau historique
+                        dataSet.push([
+                            item.timestamp,
+                            item.temp / 1000.00
+                        ]);
+
+                        // point de mesure pour le graph
+                        if (countValue < 13) {
+                            countValue++;
+                            jsonTemp.push(item.temp / 1000.00);
+                        }
+
+                    });
+
+                    /* for (var i = 0; i < postData.length; i++) {
                         // id main_table
                         if (i > 0) {
 
@@ -70,7 +92,7 @@
                             newTH.append(newTR1);
                             newTH.append(newTR2);
 							
-                            $('#main_table').append( newTH );*/
+                            $('#main_table').append( newTH );
                             dataSet.push([
                                 value[0].replace('-', '/').replace('-', '/').replace('-', '/'),
                                 value[1] / 1000.00
@@ -81,11 +103,11 @@
                                     countValue++;
                                     jsonTemp.push(value[1] / 1000.00);
                                 }
-                            }
-                        }
-                        //console.log( postData[i]);
+                            }*/
 
-                    }
+                    //console.log( postData[i]);
+
+
 
                     $(document).ready(function() {
                         $('#main_table').DataTable({
